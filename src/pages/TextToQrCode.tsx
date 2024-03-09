@@ -29,8 +29,7 @@ const TextToQrCode = () => {
     }
   }
   return (
-    <div>
-      <h3>Chuyển văn bản thành QR Code</h3>
+    <>
       <div className='my-6'>
         <label
           htmlFor='vanBanInput'
@@ -44,8 +43,8 @@ const TextToQrCode = () => {
           ) => setInputValue(e.target.value)}
           type='text'
           id='vanBanInput'
-          placeholder='Nhập văn bản cần chuyển đổi sang QR Code tại đây'
-          className='block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          placeholder='Nhập văn bản cần chuyển đổi sang QR Code tại đây...'
+          className='min-w-[50vw] p-4 outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 '
         />
       </div>
       <div className='flex flex-col items-center'>
@@ -67,7 +66,7 @@ const TextToQrCode = () => {
           Tải xuống
         </button>
       </div>
-    </div>
+    </>
   )
 }
 
