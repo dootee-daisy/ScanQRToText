@@ -31,12 +31,6 @@ const TextToQrCode = () => {
   return (
     <>
       <div className='my-6'>
-        <label
-          htmlFor='vanBanInput'
-          className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-        >
-          Large input
-        </label>
         <input
           onChange={(
             e: React.ChangeEvent<HTMLInputElement>
@@ -61,7 +55,7 @@ const TextToQrCode = () => {
         <button
           onClick={downloadImage}
           type='button'
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+          className='px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
         >
           Tải xuống
         </button>
