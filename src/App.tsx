@@ -7,6 +7,7 @@ import "./App.css"
 import Main from "./components/layout/Main"
 import TextToQrCode from "./pages/TextToQrCode"
 import QrCodeToText from "./pages/QrCodeToText"
+import About from "./pages/About"
 
 function App() {
   return (
@@ -14,11 +15,12 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Main />}>
-            <Route index element={<TextToQrCode />}></Route>
+            <Route index element={<TextToQrCode />} />
             <Route
               path='/qrcode-to-text'
               element={<QrCodeToText />}
-            ></Route>
+            />
+            <Route path='/about' element={<About />} />
           </Route>
         </Routes>
       </Router>

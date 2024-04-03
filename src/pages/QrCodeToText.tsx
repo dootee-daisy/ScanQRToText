@@ -27,7 +27,10 @@ const QrCodeToText = () => {
         type='file'
         className='min-w-[50vw] mt-6 p-4 outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 '
       />
-      <p>{result}</p>
+      <p className='mt-6'>
+        Sau khi quét, văn bản sẽ xuất hiện bên dưới đây
+      </p>
+      <h1 className='mt-6 text-4xl'>{result}</h1>
     </>
   )
 }

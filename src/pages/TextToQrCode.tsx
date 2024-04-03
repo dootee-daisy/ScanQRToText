@@ -1,66 +1,56 @@
-import React from "react"
-import QRCode from "react-qr-code"
-const TextToQrCode = () => {
-  const [inputValue, setInputValue] =
-    React.useState<string>("")
-  //Tạo hàm download
-  const downloadImage = () => {
-    const svg = document.getElementById("QRCode")
-    if (svg instanceof SVGSVGElement) {
-      const svgData: string =
-        new XMLSerializer().serializeToString(svg)
-      const canvas: HTMLCanvasElement =
-        document.createElement("canvas")
-      const ctx = canvas.getContext("2d")
-      const img: HTMLImageElement = new Image()
-      img.onload = () => {
-        canvas.width = img.width
-        canvas.height = img.height
-        ctx != null && ctx.drawImage(img, 0, 0)
-        const pngFile = canvas.toDataURL("image/png")
-        const link = document.createElement("a")
+import React, { useState, useEffect, useRef } from "react"
+import QRCode from "qrcode"
 
-        //Đặt tên cho ảnh
-        link.download = "QRCode"
-        link.href = `${pngFile}`
-        link.click()
+const TextToQrCode = () => {
+  const [inputValue, setInputValue] = useState<string>("")
+  const qrRef = useRef<HTMLCanvasElement | null>(null)
+
+  const generateQR = async (text: string) => {
+    try {
+      if (qrRef.current !== null) {
+        await QRCode.toCanvas(qrRef.current, text)
       }
-      img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
+    } catch (err) {
+      console.error(err)
     }
   }
+
+  useEffect(() => {
+    generateQR(inputValue)
+  }, [inputValue])
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputValue(event.target.value)
+  }
+
+  const downloadImage = () => {
+    const link = document.createElement("a")
+    link.download = "QRCode.png"
+    if (qrRef.current !== null) {
+      link.href = qrRef.current?.toDataURL()
+      link.click()
+    }
+  }
+
   return (
-    <>
-      <div className='my-6'>
-        <input
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement>
-          ) => setInputValue(e.target.value)}
-          type='text'
-          id='vanBanInput'
-          placeholder='Nhập văn bản cần chuyển đổi sang QR Code tại đây...'
-          className='min-w-[50vw] p-4 outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 '
-        />
+    <div className='flex flex-col items-center QRCodeContainer'>
+      <input
+        className='min-w-[50vw] p-4 mt-6 outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 '
+        onChange={handleInputChange}
+        placeholder='Nhập văn bản cần chuyển đổi sang QR Code tại đây...'
+      />
+      <div className='h-auto max-w-full mb-6 '>
+        <canvas ref={qrRef} />
       </div>
-      <div className='flex flex-col items-center'>
-        <div>
-          <h3 className='mb-6'>QR Code được tạo tại đây</h3>
-        </div>
-        <QRCode
-          id='QRCode'
-          size={256}
-          className='mb-6 h-auto max-w-full w-[200px]'
-          value={inputValue}
-          viewBox={`0 0 256 256`}
-        />
-        <button
-          onClick={downloadImage}
-          type='button'
-          className='px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-        >
-          Tải xuống
-        </button>
-      </div>
-    </>
+      <button
+        className='px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+        onClick={downloadImage}
+      >
+        Tải xuống
+      </button>
+    </div>
   )
 }
 

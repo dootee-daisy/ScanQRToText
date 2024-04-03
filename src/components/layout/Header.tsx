@@ -51,7 +51,7 @@ const Header = () => {
               </LinkTo>
             </li>
             <li>
-              <LinkTo to='#'>About</LinkTo>
+              <LinkTo to='about'>About</LinkTo>
             </li>
           </ul>
         </div>
